@@ -6,6 +6,7 @@ import me.arasple.mc.trchat.util.*
 import me.arasple.mc.trchat.util.color.colorify
 import me.arasple.mc.trchat.util.color.parseToShadowColor
 import net.kyori.adventure.text.format.ShadowColor
+import net.minecraft.world.entity.player.Player
 import org.bukkit.command.CommandSender
 import taboolib.common.platform.function.warning
 import taboolib.common.util.replaceWithOrder
@@ -114,11 +115,11 @@ sealed interface Style {
                 }
                 is Hover.Text -> {
                     contents.filter { it.second.pass(sender) }.joinToString("\n") { it.first }
-                        .parseInline(sender).setPlaceholders(sender).replaceWithOrder(*vars)
+                        .parseInline(sender).setPlaceholders(if (sender is Player) sender else null).replaceWithOrder(*vars)
                 }
                 else -> {
                     contents.firstOrNull { it.second.pass(sender) }?.first
-                        ?.parseInline(sender)?.setPlaceholders(sender)?.replaceWithOrder(*vars)
+                        ?.parseInline(sender)?.setPlaceholders(if (sender is Player) sender else null)?.replaceWithOrder(*vars)
                 }
             }
             if (content != null) {

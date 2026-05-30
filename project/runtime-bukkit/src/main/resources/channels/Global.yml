@@ -26,7 +26,6 @@ Formats:
       default-color: 'f'
       hover: '&7Date: %server_time_HH:mm:ss%'
 
-# Can't use placeholders!
 Console:
   - prefix:
       server:

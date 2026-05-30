@@ -17,8 +17,8 @@ class Head(content: String, condition: Condition?) : Text(content.split(':')[0],
 
     override fun process(sender: CommandSender, vararg vars: String): ComponentText {
         var text = KetherHandler.parseInline(content, sender)
-        if (sender is Player && dynamic) {
-            text = text.setPlaceholders(sender)
+        if (dynamic) {
+            text = text.setPlaceholders(if (sender is Player) sender else null)
         }
         text = text.replaceWithOrder(*vars)
         val uuid = text.parseUUID()

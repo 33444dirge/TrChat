@@ -27,7 +27,7 @@ class CustomColor(val type: ColorType, val color: String) {
             message = when (type) {
                 ColorType.NORMAL -> color + message
                 ColorType.SPECIAL -> (color + message).parseRainbow().parseGradients()
-                ColorType.DYNAMIC -> (color.setPlaceholders(sender) + message).colorify()
+                ColorType.DYNAMIC -> (color.setPlaceholders(if (sender is org.bukkit.entity.Player) sender else null) + message).colorify()
             }
         }
 

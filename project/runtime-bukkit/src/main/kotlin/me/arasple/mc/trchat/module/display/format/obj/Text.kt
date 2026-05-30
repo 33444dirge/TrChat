@@ -25,8 +25,8 @@ open class Text(val content: String, val condition: Condition?) {
 
     open fun process(sender: CommandSender, vararg vars: String): ComponentText {
         var text = KetherHandler.parseInline(content, sender)
-        if (sender is Player && dynamic) {
-            text = text.setPlaceholders(sender)
+        if (dynamic) {
+            text = text.setPlaceholders(if (sender is Player) sender else null)
         }
         text = hookItemsAdder.replaceFontImages(text, null)
         text = text.replaceWithOrder(*vars)
